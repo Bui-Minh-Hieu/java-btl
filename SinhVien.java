@@ -1,5 +1,3 @@
-package Bai1;
-
 public class SinhVien extends Nguoi{
 	private String sV_ID;
 	private String sV_Job;

@@ -1,5 +1,3 @@
-package Bai1;
-
 import java.util.Scanner;
 
 public class SinhVien_Controller implements Controller{

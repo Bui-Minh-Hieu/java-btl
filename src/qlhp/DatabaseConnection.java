@@ -3,7 +3,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 
 public class DatabaseConnection {
-    private static final String URL = "jdbc:sqlserver://SONICT\\MSSQLSERVER1:1433;databaseName=qlsv;encrypt=true;trustServerCertificate=true";
+    private static final String URL = "jdbc:sqlserver://DESKTOP-T9547TE\\MSSQLSERVER1:1433;databaseName=qlsv;encrypt=true;trustServerCertificate=true";
     private static final String USER = "sa";
     private static final String PASSWORD = "123";
 

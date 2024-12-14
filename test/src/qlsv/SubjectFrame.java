@@ -2,6 +2,11 @@ package qlhp;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+
+import DATA.HocPhan;
+import DATABASE.DatabaseConnection;
+import DATABASE.HocPhanDAO;
+
 import java.awt.*;
 import java.io.FileWriter;
 import java.io.IOException;

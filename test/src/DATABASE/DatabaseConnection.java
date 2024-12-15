@@ -5,7 +5,7 @@ import java.sql.DriverManager;
 
 public class DatabaseConnection {
 	
-	private static final String URL = "jdbc:sqlserver://DESKTOP-SDLRKU6:1433;databaseName=qlsv;encrypt=true;trustServerCertificate=true\r";
+	private static final String URL = "jdbc:sqlserver://SONICT\\MSSQLSERVER1:1433;databaseName=qlsv;encrypt=true;trustServerCertificate=true";
 	private static final String USER = "sa";
 	private static final String PASSWORD = "123"; 
     public static Connection getConnection() {

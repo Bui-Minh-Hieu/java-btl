@@ -48,8 +48,8 @@ public class MainFrame extends JFrame {
         btnHocPhan.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //HocPhanFrame hocPhanFrame = new HocPhanFrame();
-                //hocPhanFrame.setVisible(true);
+                SubjectFrame subjectFrame = new SubjectFrame(username);
+                subjectFrame.setVisible(true);
             	dispose();
             }
         });

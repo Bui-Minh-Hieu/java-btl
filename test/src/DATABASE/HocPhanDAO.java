@@ -1,7 +1,9 @@
-package qlhp;
+package DATABASE;
 
 import java.sql.*;
 import java.util.ArrayList;
+
+import DATA.HocPhan;
 
 public class HocPhanDAO {
     public ArrayList<HocPhan> getAllHP() {

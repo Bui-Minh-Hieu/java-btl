@@ -1,4 +1,4 @@
-package qlhp;
+package DATA;
 
 public class HocPhan {
 	private String subject_ID;

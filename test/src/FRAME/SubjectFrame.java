@@ -1,11 +1,13 @@
-package qlhp;
+package FRAME;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
 import DATA.HocPhan;
+import DATA.SinhVien;
 import DATABASE.DatabaseConnection;
 import DATABASE.HocPhanDAO;
+import DATABASE.SinhVienDAO;
 
 import java.awt.*;
 import java.io.FileWriter;
@@ -86,47 +88,18 @@ public class SubjectFrame extends JFrame {
         btnNewButton.addActionListener(e -> { new SubjectFrame(username).setVisible(true);	dispose();	});
         panel.add(btnNewButton);       
 
-        loadDataFromDatabase();
+        loadSV();
     }
 
-    
-    
-    private void loadDataFromDatabase() {
-        try (Connection connection = DatabaseConnection.getConnection()) {
-            // Truy vấn kết hợp hai bảng
-            String query = """
-                    SELECT hp.subject_ID, hp.subject_Name, hp.tin_chi, hp.price
-                    FROM HocPhan hp
-                   
-                    """;
+	private void loadSV() {
+        HocPhanDAO hPDAO = new HocPhanDAO();
+        sub_List = hPDAO.getAllHP();
+        model.setRowCount(0);
 
-            PreparedStatement statement = connection.prepareStatement(query);
-            ResultSet resultSet = statement.executeQuery();
-
-            sub_List.clear();
-            model.setRowCount(0);
-
-
-            while (resultSet.next()) {
-                String subject_ID = resultSet.getString("subject_ID");
-                String subject_Name = resultSet.getString("subject_Name");
-                int tin_chi = resultSet.getInt("tin_chi");
-                float price = resultSet.getFloat("price");
-
-                HocPhan cur = new HocPhan( subject_ID, subject_Name, tin_chi, price);
-                sub_List.add(cur);
-
-                // Thêm dữ liệu vào bảng hiển thị
-                model.addRow(cur.toArray());
-            }
-
-            // Cập nhật số thứ tự
-            updateSTT();
-
-            // Đóng statement cập nhật
-            // updateStatement.close();
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(this, "Lỗi khi tải và cập nhật dữ liệu từ cơ sở dữ liệu: " + ex.getMessage());
+        for (HocPhan hP : sub_List) {
+            model.addRow(new Object[]{
+            		sub_List.indexOf(hP) + 1, hP.getSubject_ID(), hP.getSubject_Name(), hP.getTin_chi(), hP.getPrice()
+            });
         }
     }
 
@@ -298,7 +271,7 @@ public class SubjectFrame extends JFrame {
             statement.setFloat(3, hp.getPrice());
         }
             statement.executeUpdate();
-            loadDataFromDatabase();
+            loadSV();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(this, "Lỗi khi lưu dữ liệu: " + ex.getMessage());
         }

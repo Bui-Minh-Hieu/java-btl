@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import DATA.SinhVien;
 import DATABASE.DatabaseConnection;
 import DATABASE.SinhVienDAO;
-import java.awt.Window.Type;
 import org.eclipse.wb.swing.FocusTraversalOnArray;
 
 public class SinhVienFrame extends JFrame {
@@ -72,9 +71,8 @@ public class SinhVienFrame extends JFrame {
         JButton btnNewButton = new JButton("Quay lại");
         btnNewButton.setForeground(Color.DARK_GRAY);
         btnNewButton.setBackground(Color.CYAN);
-        btnNewButton.addActionListener(e -> { new MainFrame("admin1").setVisible(true);	dispose();	});
+        btnNewButton.addActionListener(e -> { new MainFrame(username).setVisible(true);	dispose();	});
         panel.add(btnNewButton);       
-        panel.setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{addButton, editButton, deleteButton, searchButton, btnNewButton}));
 
         loadSV();
     }

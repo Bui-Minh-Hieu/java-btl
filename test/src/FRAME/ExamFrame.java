@@ -76,7 +76,6 @@ public class ExamFrame extends JFrame {
         btnNewButton.setBackground(Color.CYAN);
         btnNewButton.addActionListener(e -> { new MainFrame(username).setVisible(true);	dispose();	});
         panel.add(btnNewButton);       
-        panel.setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{addButton, editButton, deleteButton, searchButton, btnNewButton}));
 
         loadExams();
     }

@@ -3,23 +3,18 @@ package FRAME;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
+import org.eclipse.wb.swing.FocusTraversalOnArray;
+
 import DATA.HocPhan;
-import DATA.SinhVien;
 import DATABASE.DatabaseConnection;
 import DATABASE.HocPhanDAO;
-import DATABASE.SinhVienDAO;
-
 import java.awt.*;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Random;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+
 
 public class SubjectFrame extends JFrame {
     private JTable table;
@@ -44,19 +39,12 @@ public class SubjectFrame extends JFrame {
         scrollPane.setViewportBorder(null);
         getContentPane().add(scrollPane, BorderLayout.CENTER);
         
-        JPanel panel = new JPanel(new FlowLayout());
-        panel.setBackground(Color.WHITE);
-        getContentPane().add(panel, BorderLayout.SOUTH);
-        
         JPopupMenu settingMenu = new JPopupMenu();
         
-        JLabel titleLabel = new JLabel("Danh sách thông tin của học phần: ");
-        titleLabel.setForeground(Color.BLACK);
-        titleLabel.setFont(new Font("Arial", Font.BOLD, 16));
-        JPanel northPanel = new JPanel(new BorderLayout());
-        northPanel.add(titleLabel, BorderLayout.CENTER);
-        getContentPane().add(northPanel, BorderLayout.NORTH);
-        
+        JPanel panel = new JPanel(new FlowLayout());
+        panel.setPreferredSize(new Dimension(100, 100));
+        getContentPane().add(panel, BorderLayout.NORTH);
+        panel.setBackground(Color.WHITE);
         
         JButton addButton = new JButton("Thêm học phần");
         addButton.setForeground(Color.DARK_GRAY);
@@ -67,31 +55,32 @@ public class SubjectFrame extends JFrame {
         JButton editButton = new JButton("Sửa học phần");
         editButton.setForeground(Color.DARK_GRAY);
         editButton.setBackground(Color.CYAN);
-        editButton.addActionListener(e -> editNguyenVong());
+        editButton.addActionListener(e -> editSubject());
         panel.add(editButton);
         
         JButton deleteButton = new JButton("Xóa học phần");
         deleteButton.setForeground(Color.DARK_GRAY);
         deleteButton.setBackground(Color.CYAN);
-        deleteButton.addActionListener(e -> deleteNguyenVong());
+        deleteButton.addActionListener(e -> deleteSubject());
         panel.add(deleteButton);
         
         JButton searchButton = new JButton("Tìm kiếm học phần");
         searchButton.setForeground(Color.DARK_GRAY);
         searchButton.setBackground(Color.CYAN);
-        searchButton.addActionListener(e -> searchNguyenVong());
+        searchButton.addActionListener(e -> searchSubject());
         panel.add(searchButton);
         
         JButton btnNewButton = new JButton("Quay lại");
         btnNewButton.setForeground(Color.DARK_GRAY);
         btnNewButton.setBackground(Color.CYAN);
-        btnNewButton.addActionListener(e -> { new SubjectFrame(username).setVisible(true);	dispose();	});
+        btnNewButton.addActionListener(e -> { new MainFrame(username).setVisible(true);	dispose();	});
         panel.add(btnNewButton);       
-
-        loadSV();
+        panel.setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{addButton, editButton, deleteButton, searchButton, btnNewButton}));
+        
+        loadHP();
     }
 
-	private void loadSV() {
+	private void loadHP() {
         HocPhanDAO hPDAO = new HocPhanDAO();
         sub_List = hPDAO.getAllHP();
         model.setRowCount(0);
@@ -136,14 +125,9 @@ public class SubjectFrame extends JFrame {
             String price = priceField.getText().trim();
 
             if (cur == null) {
-                String id;
-                Random random = new Random();
-                do {
-                    id = String.valueOf(random.nextInt(100));
-                } while (idDaTonTai(id));
                 int tin_chiValue = Integer.parseInt(tin_chi);
                 float priceValue = Float.parseFloat(price);
-                HocPhan newHP = new HocPhan(id, subject_Name, tin_chiValue ,priceValue);
+                HocPhan newHP = new HocPhan(subject_ID, subject_Name, tin_chiValue ,priceValue);
                 sub_List.add(newHP);
                 model.addRow(newHP.toArray());
                 saveDataToDatabase(newHP, true);
@@ -178,7 +162,7 @@ public class SubjectFrame extends JFrame {
 	    return false;
     }
     
-    private void editNguyenVong() {
+    private void editSubject() {
         int row = table.getSelectedRow();
         if (row >= 0) {
             showAddEditDialog(sub_List.get(row));
@@ -187,7 +171,7 @@ public class SubjectFrame extends JFrame {
         }
     }
 
-    private void deleteNguyenVong() {
+    private void deleteSubject() {
         int row = table.getSelectedRow();
         if (row >= 0) {
             int confirm = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn muốn học phần này?", "Xác nhận xóa", JOptionPane.YES_NO_OPTION);
@@ -202,7 +186,7 @@ public class SubjectFrame extends JFrame {
         }
     }
 
-    private void searchNguyenVong() {
+    private void searchSubject() {
         String searchTerm = JOptionPane.showInputDialog("Nhập id cần tìm:");
         if (searchTerm != null) {
             DefaultTableModel model = new DefaultTableModel();
@@ -271,7 +255,7 @@ public class SubjectFrame extends JFrame {
             statement.setFloat(3, hp.getPrice());
         }
             statement.executeUpdate();
-            loadSV();
+            loadHP();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(this, "Lỗi khi lưu dữ liệu: " + ex.getMessage());
         }

@@ -2,22 +2,16 @@ package FRAME;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-
+import java.awt.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import DATA.SinhVien;
 import DATABASE.DatabaseConnection;
 import DATABASE.SinhVienDAO;
-
-import java.awt.*;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Random;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+import java.awt.Window.Type;
+import org.eclipse.wb.swing.FocusTraversalOnArray;
 
 public class SinhVienFrame extends JFrame {
     private JTable table;
@@ -34,6 +28,7 @@ public class SinhVienFrame extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         
+        
         model = new DefaultTableModel();
         model.setColumnIdentifiers(new Object[]{	"STT", "ID", "Tên", "Lớp", "CCCD", "Email"	});
         table = new JTable(model);
@@ -42,18 +37,12 @@ public class SinhVienFrame extends JFrame {
         scrollPane.setViewportBorder(null);
         getContentPane().add(scrollPane, BorderLayout.CENTER);
         
-        JPanel panel = new JPanel(new FlowLayout());
-        panel.setBackground(Color.WHITE);
-        getContentPane().add(panel, BorderLayout.SOUTH);
-        
         JPopupMenu settingMenu = new JPopupMenu();
         
-        JLabel titleLabel = new JLabel("Danh sách thông tin của sinh viên: ");
-        titleLabel.setForeground(Color.BLACK);
-        titleLabel.setFont(new Font("Arial", Font.BOLD, 16));
-        JPanel northPanel = new JPanel(new BorderLayout());
-        northPanel.add(titleLabel, BorderLayout.CENTER);
-        getContentPane().add(northPanel, BorderLayout.NORTH);
+        JPanel panel = new JPanel(new FlowLayout());
+        panel.setPreferredSize(new Dimension(100, 100));
+        getContentPane().add(panel, BorderLayout.NORTH);
+        panel.setBackground(Color.WHITE);
         
         
         JButton addButton = new JButton("Thêm sinh viên");
@@ -65,26 +54,27 @@ public class SinhVienFrame extends JFrame {
         JButton editButton = new JButton("Sửa sinh viên");
         editButton.setForeground(Color.DARK_GRAY);
         editButton.setBackground(Color.CYAN);
-        editButton.addActionListener(e -> editNguyenVong());
+        editButton.addActionListener(e -> editSinhVien());
         panel.add(editButton);
         
         JButton deleteButton = new JButton("Xóa sinh viên");
         deleteButton.setForeground(Color.DARK_GRAY);
         deleteButton.setBackground(Color.CYAN);
-        deleteButton.addActionListener(e -> deleteNguyenVong());
+        deleteButton.addActionListener(e -> deleteSinhVien());
         panel.add(deleteButton);
         
         JButton searchButton = new JButton("Tìm kiếm sinh viên");
         searchButton.setForeground(Color.DARK_GRAY);
         searchButton.setBackground(Color.CYAN);
-        searchButton.addActionListener(e -> searchNguyenVong());
+        searchButton.addActionListener(e -> searchSinhVien());
         panel.add(searchButton);
         
         JButton btnNewButton = new JButton("Quay lại");
         btnNewButton.setForeground(Color.DARK_GRAY);
         btnNewButton.setBackground(Color.CYAN);
-        btnNewButton.addActionListener(e -> { new MainFrame(username).setVisible(true);	dispose();	});
+        btnNewButton.addActionListener(e -> { new MainFrame("admin1").setVisible(true);	dispose();	});
         panel.add(btnNewButton);       
+        panel.setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{addButton, editButton, deleteButton, searchButton, btnNewButton}));
 
         loadSV();
     }
@@ -157,7 +147,7 @@ public class SinhVienFrame extends JFrame {
         }
     }
     
-    private void editNguyenVong() {
+    private void editSinhVien() {
         int row = table.getSelectedRow();
         if (row >= 0) {
             showAddEditDialog(sV_List.get(row));
@@ -166,7 +156,7 @@ public class SinhVienFrame extends JFrame {
         }
     }
 
-    private void deleteNguyenVong() {
+    private void deleteSinhVien() {
         int row = table.getSelectedRow();
         if (row >= 0) {
             int confirm = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn muốn sinh viên này?", "Xác nhận xóa", JOptionPane.YES_NO_OPTION);
@@ -181,7 +171,7 @@ public class SinhVienFrame extends JFrame {
         }
     }
 
-    private void searchNguyenVong() {
+    private void searchSinhVien() {
     String searchTerm = JOptionPane.showInputDialog("Nhập id cần tìm:");
     if (searchTerm != null) {
         DefaultTableModel model = new DefaultTableModel();

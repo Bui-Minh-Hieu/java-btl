@@ -1,0 +1,516 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="15.1.0">
+  <zoom_level>4</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>96</x>
+      <y>84</y>
+      <w>244</w>
+      <h>136</h>
+    </coordinates>
+    <panel_attributes>DATA::SinhVien
+--
+-sV_ID: String
+-sV_Name: String
+-class_Name: String
+-cCCD: String
+-email: String
+--
++SinhVien(String sV_ID, String sV_Name, String class_Name, String cCCD, String email): ctor
++SinhVien(): ctor
++getsV_ID(): String
++setsV_ID(String sV_ID): void
++getsV_Name(): String
++setsV_Name(String sV_Name): void
++getClass_Name(): String
++setClass_Name(String class_Name): void
++getcCCD(): String
++setcCCD(String cCCD): void
++getEmail(): String
++setEmail(String email): void
++toArray(): Object[]
++toString(): String
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>140</x>
+      <y>228</y>
+      <w>184</w>
+      <h>116</h>
+    </coordinates>
+    <panel_attributes>DATA::HocPhan
+--
+-subject_ID: String
+-subject_Name: String
+-tin_chi: int
+-price: float
+--
++HocPhan(): ctor
++HocPhan(String sub_ID, String sub_Name, int credit, float price): ctor
++getSubject_ID(): String
++setSubject_ID(String subject_ID): void
++getSubject_Name(): String
++setSubject_Name(String subject_Name): void
++getTin_chi(): int
++setTin_chi(int tin_chi): void
++getPrice(): float
++setPrice(float price): void
++toArray(): Object[]
++toString(): String
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>348</x>
+      <y>380</y>
+      <w>144</w>
+      <h>104</h>
+    </coordinates>
+    <panel_attributes>FRAME::ExamFrame
+--
+-table: JTable
+-model: DefaultTableModel
+-thi_List: ArrayList&lt;Exam&gt;
+-currentUsername: String
+--
++ExamFrame(String username): ctor
+-loadDataFromDatabase(): void
+-loadExams(): void
+-showAddEditDialog(Exam cur): void
+-editExam(): void
+-deleteExam(): void
+-searchExam(): void
+-saveDataToDatabase(Exam ex, boolean isNew): void
+-deleteDataFromDatabase(Exam sv): void
+-updateSTT(): void
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>348</x>
+      <y>232</y>
+      <w>152</w>
+      <h>104</h>
+    </coordinates>
+    <panel_attributes>FRAME::SubjectFrame
+--
+-table: JTable
+-model: DefaultTableModel
+-sub_List: ArrayList&lt;HocPhan&gt;
+-currentUsername: String
+--
++SubjectFrame(String username): ctor
+-loadSV(): void
+-showAddEditDialog(HocPhan cur): void
+-idDaTonTai(String id): boolean
+-editSubject(): void
+-deleteSubject(): void
+-searchSubject(): void
+-saveDataToDatabase(HocPhan hp, boolean isNew): void
+-deleteDataFromDatabase(HocPhan hp): void
+-updateSTT(): void
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>364</x>
+      <y>84</y>
+      <w>152</w>
+      <h>96</h>
+    </coordinates>
+    <panel_attributes>FRAME::SinhVienFrame
+--
+-table: JTable
+-model: DefaultTableModel
+-sV_List: ArrayList&lt;SinhVien&gt;
+-currentUsername: String
+--
++SinhVienFrame(String username): ctor
+-loadSV(): void
+-showAddEditDialog(SinhVien cur): void
+-editSinhVien(): void
+-deleteSinhVien(): void
+-searchSinhVien(): void
+-saveDataToDatabase(SinhVien sv, boolean isNew): void
+-deleteDataFromDatabase(SinhVien sv): void
+-updateSTT(): void
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>524</x>
+      <y>348</y>
+      <w>168</w>
+      <h>104</h>
+    </coordinates>
+    <panel_attributes>DATA::Admin
+--
+-admin_ID: String
+-admin_Name: String
+-pass: String
+--
++Admin(String admin_ID, String admin_Name, String pass): ctor
++Admin(): ctor
++getAdmin_ID(): String
++setAdmin_ID(String admin_ID): void
++getAdmin_Name(): String
++setAdmin_Name(String admin_Name): void
++getPass(): String
++setPass(String pass): void
++toString(): String
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>152</x>
+      <y>368</y>
+      <w>172</w>
+      <h>84</h>
+    </coordinates>
+    <panel_attributes>DATA::Exam
+--
+-exam_ID: String
+-subject_ID: String
+-exam_Date: Date
+--
++Exam(String exam_ID, String subject_ID, Date exam_Date): ctor
++getExam_ID(): String
++setExam_ID(String exam_ID): void
++getSubject_ID(): String
++setSubject_ID(String subject_ID): void
++getExam_Date(): Date
++setExam_Date(Date exam_Date): void
++toArray(): Object[]
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>524</x>
+      <y>176</y>
+      <w>100</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>FRAME::MainFrame
+--
+-currentUsername: String
+--
++MainFrame(String username): ctor
+-MainFrame(): ctor
++main(String[] args): void
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>524</x>
+      <y>244</y>
+      <w>168</w>
+      <h>36</h>
+    </coordinates>
+    <panel_attributes>FRAME::LoginFrame
+--
+--
++LoginFrame(): ctor
+-authenticateAdmin(String username, String password): boolean
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>176</x>
+      <y>456</y>
+      <w>96</w>
+      <h>20</h>
+    </coordinates>
+    <panel_attributes>DATABASE::ExamDAO
+--
+--
++getAllExams(): ArrayList&lt;Exam&gt;
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>348</x>
+      <y>352</y>
+      <w>92</w>
+      <h>20</h>
+    </coordinates>
+    <panel_attributes>DATABASE::HocPhanDAO
+--
+--
++getAllHP(): ArrayList&lt;HocPhan&gt;
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>380</x>
+      <y>196</y>
+      <w>92</w>
+      <h>20</h>
+    </coordinates>
+    <panel_attributes>DATABASE::SinhVienDAO
+--
+--
++getAllSV(): ArrayList&lt;SinhVien&gt;
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>616</x>
+      <y>300</y>
+      <w>72</w>
+      <h>28</h>
+    </coordinates>
+    <panel_attributes>MAIN::Main
+--
+--
++main(String[] args): void
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>336</x>
+      <y>128</y>
+      <w>36</w>
+      <h>16</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+ttSV</panel_attributes>
+    <additional_attributes>10.0;20.0;70.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>420</x>
+      <y>176</y>
+      <w>24</w>
+      <h>28</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+dsSV</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;50.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>76</x>
+      <y>216</y>
+      <w>36</w>
+      <h>88</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+CSDL</panel_attributes>
+    <additional_attributes>10.0;200.0;50.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>100</x>
+      <y>272</y>
+      <w>48</w>
+      <h>32</h>
+    </coordinates>
+    <panel_attributes>CSDL
+lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;60.0;60.0;20.0;100.0;50.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>72</x>
+      <y>332</y>
+      <w>88</w>
+      <h>104</h>
+    </coordinates>
+    <panel_attributes>CSDL
+lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;200.0;240.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>320</x>
+      <y>276</y>
+      <w>36</w>
+      <h>16</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+ttHP</panel_attributes>
+    <additional_attributes>10.0;20.0;70.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>404</x>
+      <y>332</y>
+      <w>28</w>
+      <h>28</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+dsHP</panel_attributes>
+    <additional_attributes>20.0;10.0;10.0;50.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>320</x>
+      <y>420</y>
+      <w>36</w>
+      <h>16</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+ttKT</panel_attributes>
+    <additional_attributes>10.0;20.0;70.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>268</x>
+      <y>456</y>
+      <w>88</w>
+      <h>16</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+ttKT</panel_attributes>
+    <additional_attributes>200.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>12</x>
+      <y>296</y>
+      <w>100</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>DATABASE::DatabaseConnection
+--
+-URL: String
+-USER: String
+-PASSWORD: String
+--
++getConnection(): Connection
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>532</x>
+      <y>276</y>
+      <w>32</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+ttAdmin</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;180.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>512</x>
+      <y>132</y>
+      <w>20</w>
+      <h>52</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+</panel_attributes>
+    <additional_attributes>10.0;10.0;30.0;110.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>496</x>
+      <y>196</y>
+      <w>36</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;130.0;70.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>488</x>
+      <y>212</y>
+      <w>44</w>
+      <h>204</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;490.0;90.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>636</x>
+      <y>276</y>
+      <w>12</w>
+      <h>32</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;60.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>568</x>
+      <y>212</y>
+      <w>16</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;20.0;80.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>44</x>
+      <y>332</y>
+      <w>536</w>
+      <h>168</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+CSDL</panel_attributes>
+    <additional_attributes>10.0;10.0;260.0;400.0;1160.0;400.0;1320.0;300.0</additional_attributes>
+  </element>
+</diagram>

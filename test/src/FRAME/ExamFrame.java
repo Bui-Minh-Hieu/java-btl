@@ -2,24 +2,20 @@ package FRAME;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.text.Caret;
+
+import org.eclipse.wb.swing.FocusTraversalOnArray;
 
 import DATA.Exam;
 import DATABASE.DatabaseConnection;
 import DATABASE.ExamDAO;
-
 import java.awt.*;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Random;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+
 
 public class ExamFrame extends JFrame {
     private JTable table;
@@ -44,19 +40,12 @@ public class ExamFrame extends JFrame {
         scrollPane.setViewportBorder(null);
         getContentPane().add(scrollPane, BorderLayout.CENTER);
         
-        JPanel panel = new JPanel(new FlowLayout());
-        panel.setBackground(Color.WHITE);
-        getContentPane().add(panel, BorderLayout.SOUTH);
-        
         JPopupMenu settingMenu = new JPopupMenu();
         
-        JLabel titleLabel = new JLabel("Danh sách thông tin lịch thi : ");
-        titleLabel.setForeground(Color.BLACK);
-        titleLabel.setFont(new Font("Arial", Font.BOLD, 16));
-        JPanel northPanel = new JPanel(new BorderLayout());
-        northPanel.add(titleLabel, BorderLayout.CENTER);
-        getContentPane().add(northPanel, BorderLayout.NORTH);
-        
+        JPanel panel = new JPanel(new FlowLayout());
+        panel.setPreferredSize(new Dimension(100, 100));
+        getContentPane().add(panel, BorderLayout.NORTH);
+        panel.setBackground(Color.WHITE);
         
         JButton addButton = new JButton("Thêm Lịch Thi");
         addButton.setForeground(Color.DARK_GRAY);
@@ -87,18 +76,14 @@ public class ExamFrame extends JFrame {
         btnNewButton.setBackground(Color.CYAN);
         btnNewButton.addActionListener(e -> { new MainFrame(username).setVisible(true);	dispose();	});
         panel.add(btnNewButton);       
+        panel.setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{addButton, editButton, deleteButton, searchButton, btnNewButton}));
 
         loadExams();
     }
 
-    
-    
     private void loadDataFromDatabase() {
     try (Connection connection = DatabaseConnection.getConnection()) {
-        // Truy vấn kết hợp hai bảng
-        String query = """
-        			SELECT Thi.exam_ID, Thi.subject_ID, Thi.exam_Date From Thi;
-                """;
+        String query = " SELECT Thi.exam_ID, Thi.subject_ID, Thi.exam_Date From Thi;";
 
         PreparedStatement statement = connection.prepareStatement(query);
         ResultSet resultSet = statement.executeQuery();

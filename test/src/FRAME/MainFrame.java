@@ -12,7 +12,7 @@ public class MainFrame extends JFrame {
     private String currentUsername;
 
     public MainFrame(String username) {
-    	this.currentUsername = username;
+    	//this.currentUsername = username;
         setTitle("Quản Lý Sinh Viên");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(430, 300);

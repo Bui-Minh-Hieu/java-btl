@@ -124,14 +124,9 @@ public class SubjectFrame extends JFrame {
             String price = priceField.getText().trim();
 
             if (cur == null) {
-                String id;
-                Random random = new Random();
-                do {
-                    id = String.valueOf(random.nextInt(100));
-                } while (idDaTonTai(id));
                 int tin_chiValue = Integer.parseInt(tin_chi);
                 float priceValue = Float.parseFloat(price);
-                HocPhan newHP = new HocPhan(id, subject_Name, tin_chiValue ,priceValue);
+                HocPhan newHP = new HocPhan(subject_ID, subject_Name, tin_chiValue ,priceValue);
                 sub_List.add(newHP);
                 model.addRow(newHP.toArray());
                 saveDataToDatabase(newHP, true);

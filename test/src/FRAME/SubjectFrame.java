@@ -3,18 +3,17 @@ package FRAME;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
-import org.eclipse.wb.swing.FocusTraversalOnArray;
-
 import DATA.HocPhan;
 import DATABASE.DatabaseConnection;
 import DATABASE.HocPhanDAO;
+import DATABASE.SinhVienDAO;
+
 import java.awt.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Random;
-
 
 public class SubjectFrame extends JFrame {
     private JTable table;
@@ -46,6 +45,7 @@ public class SubjectFrame extends JFrame {
         getContentPane().add(panel, BorderLayout.NORTH);
         panel.setBackground(Color.WHITE);
         
+        
         JButton addButton = new JButton("Thêm học phần");
         addButton.setForeground(Color.DARK_GRAY);
         addButton.setBackground(Color.CYAN);
@@ -55,19 +55,19 @@ public class SubjectFrame extends JFrame {
         JButton editButton = new JButton("Sửa học phần");
         editButton.setForeground(Color.DARK_GRAY);
         editButton.setBackground(Color.CYAN);
-        editButton.addActionListener(e -> editSubject());
+        editButton.addActionListener(e -> editNguyenVong());
         panel.add(editButton);
         
         JButton deleteButton = new JButton("Xóa học phần");
         deleteButton.setForeground(Color.DARK_GRAY);
         deleteButton.setBackground(Color.CYAN);
-        deleteButton.addActionListener(e -> deleteSubject());
+        deleteButton.addActionListener(e -> deleteNguyenVong());
         panel.add(deleteButton);
         
         JButton searchButton = new JButton("Tìm kiếm học phần");
         searchButton.setForeground(Color.DARK_GRAY);
         searchButton.setBackground(Color.CYAN);
-        searchButton.addActionListener(e -> searchSubject());
+        searchButton.addActionListener(e -> searchNguyenVong());
         panel.add(searchButton);
         
         JButton btnNewButton = new JButton("Quay lại");
@@ -75,12 +75,11 @@ public class SubjectFrame extends JFrame {
         btnNewButton.setBackground(Color.CYAN);
         btnNewButton.addActionListener(e -> { new MainFrame(username).setVisible(true);	dispose();	});
         panel.add(btnNewButton);       
-        panel.setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{addButton, editButton, deleteButton, searchButton, btnNewButton}));
-        
-        loadHP();
+
+        loadSV();
     }
 
-	private void loadHP() {
+	private void loadSV() {
         HocPhanDAO hPDAO = new HocPhanDAO();
         sub_List = hPDAO.getAllHP();
         model.setRowCount(0);
@@ -125,9 +124,14 @@ public class SubjectFrame extends JFrame {
             String price = priceField.getText().trim();
 
             if (cur == null) {
+                String id;
+                Random random = new Random();
+                do {
+                    id = String.valueOf(random.nextInt(100));
+                } while (idDaTonTai(id));
                 int tin_chiValue = Integer.parseInt(tin_chi);
                 float priceValue = Float.parseFloat(price);
-                HocPhan newHP = new HocPhan(subject_ID, subject_Name, tin_chiValue ,priceValue);
+                HocPhan newHP = new HocPhan(id, subject_Name, tin_chiValue ,priceValue);
                 sub_List.add(newHP);
                 model.addRow(newHP.toArray());
                 saveDataToDatabase(newHP, true);
@@ -162,7 +166,7 @@ public class SubjectFrame extends JFrame {
 	    return false;
     }
     
-    private void editSubject() {
+    private void editNguyenVong() {
         int row = table.getSelectedRow();
         if (row >= 0) {
             showAddEditDialog(sub_List.get(row));
@@ -171,7 +175,7 @@ public class SubjectFrame extends JFrame {
         }
     }
 
-    private void deleteSubject() {
+    private void deleteNguyenVong() {
         int row = table.getSelectedRow();
         if (row >= 0) {
             int confirm = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn muốn học phần này?", "Xác nhận xóa", JOptionPane.YES_NO_OPTION);
@@ -186,7 +190,7 @@ public class SubjectFrame extends JFrame {
         }
     }
 
-    private void searchSubject() {
+    private void searchNguyenVong() {
         String searchTerm = JOptionPane.showInputDialog("Nhập id cần tìm:");
         if (searchTerm != null) {
             DefaultTableModel model = new DefaultTableModel();
@@ -255,7 +259,7 @@ public class SubjectFrame extends JFrame {
             statement.setFloat(3, hp.getPrice());
         }
             statement.executeUpdate();
-            loadHP();
+            loadSV();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(this, "Lỗi khi lưu dữ liệu: " + ex.getMessage());
         }
